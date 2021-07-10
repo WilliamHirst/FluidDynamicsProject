@@ -8,9 +8,10 @@
 class FluidDynamics
 {
     private:
-
+      double nu;
+      double omega;
     public:
-
+      void Initialize(double width, double height, double omega);
 };
 
-#endif 
+#endif

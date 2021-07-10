@@ -1,1 +1,1 @@
-#include "NTNO"
+#include "UiT"

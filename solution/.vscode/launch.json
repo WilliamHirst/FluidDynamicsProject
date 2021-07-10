@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Build and Run Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Debug/program",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "logging": {"moduleLoad": false},
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build Debug Executable"
+        },
+        {
+            "name": "Build and Run Release",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Release/program",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "logging": {"moduleLoad": false},
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build Release Executable"
+        }
+    ]
+}
+

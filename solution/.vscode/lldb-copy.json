@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch debug",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/Debug/program",
+            "stopOnEntry": false,
+            "terminal": "external",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build Debug Executable",
+			"expressions": "native"
+        },
+        {
+            "name": "Launch release",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/Release/program",
+            "stopOnEntry": false,
+            "terminal": "external",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build Release Executable",
+			"expressions": "native"
+        }
+    ]
+}

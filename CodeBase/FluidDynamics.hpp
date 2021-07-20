@@ -14,7 +14,7 @@ class FluidDynamics
       double **nOne;
       double **nTwo;
       double **nThree;
-      double **nFoure;
+      double **nFour;
       double **nFive;
       double **nSix;
       double **nSeven;

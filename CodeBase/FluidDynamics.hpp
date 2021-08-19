@@ -38,6 +38,7 @@ class FluidDynamics
       void find_density(int width, int height);
       void deleteMatrix(double **matrix, int height);
       void Lattice_Boltzmann(int width, int height);
+      void printDensToFile(int width, int height, std::ofstream &ofile);
 };
 
 #endif

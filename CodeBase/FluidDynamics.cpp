@@ -57,12 +57,15 @@ void FluidDynamics::Lattice_Boltzmann(int width, int height)
   std::ofstream ofile;
   std::string outfilename = "particleDensity.txt";
   ofile.open(outfilename);
-  while (double counter = 0; counter<FinalTime) {
-    /* code */
+  ofile << std::setprecision(16)<< width << " "<< height <<endl;
+  int counter = 0;
+  while(counter<FinalTime) {
     for(int i = 0; i<width; i++){
       for(int j=0; j<height; j++){
+        find_density(i,j)
       }
     }
+    printDensToFile(width, height, ofile);
   }
 }
 
@@ -85,8 +88,12 @@ double ** FluidDynamics::createMatrix(int width, int height) {
 void FluidDynamics::deleteMatrix(double **matrix, int height){
   for (int i = 0; i < height; i++)
     delete[] matrix[i];
-  delete[] matrix;
+    delete[] matrix;
 }
-void solving::printDensToFile(std::ofstream &ofile){
-  ofile << std::setprecision(16)<< planets[0] << " "<< planets[1] << " "<< planets[2] <<endl;
+void solving::printDensToFile(int width, int height, std::ofstream &ofile){
+  for(int i = 0; i<width; i++){
+    for(int j=0; j<height; j++){
+      ofile << std::setprecision(5) << rho[i,j] <<endl;
+    }
+  }
 }

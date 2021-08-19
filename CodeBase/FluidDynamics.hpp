@@ -9,6 +9,7 @@ class FluidDynamics
 {
     private:
       double nu;
+      double c;
       double omega;
       double **nZero;
       double **nOne;

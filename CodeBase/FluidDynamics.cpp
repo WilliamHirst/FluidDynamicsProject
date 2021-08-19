@@ -10,10 +10,10 @@ using namespace std;
 void FluidDynamics::Initialize(int width, int height, double omega, double initial_vel, double fTime)
 {
   const double boltzmann_constant = 1.3806503e-23;
-  const double nu = 1./3. * (1./omega - 0.5);
-  const double c = 1;
-  const double FinalTime = fTime;
-  const double dt = (double) 1 / 30;
+  nu = 1./3. * (1./omega - 0.5);
+  c = 1;
+  finalTime = fTime;
+  dt = (double) 1 / 30;
   three_Half = (double) 3 / 2;
   nine_Half = (double) 9 / 2);
   nOne = nTwo = nThree = nFour = nFive = nSix = nSeven = nEight = nNine = rho = u_x = u_y = createMatrix(width, height);
@@ -54,8 +54,16 @@ void FluidDynamics::find_density(int width, int height)
 }
 void FluidDynamics::Lattice_Boltzmann(int width, int height)
 {
-
-
+  std::ofstream ofile;
+  std::string outfilename = "particleDensity.txt";
+  ofile.open(outfilename);
+  while (double counter = 0; counter<FinalTime) {
+    /* code */
+    for(int i = 0; i<width; i++){
+      for(int j=0; j<height; j++){
+      }
+    }
+  }
 }
 
 double ** FluidDynamics::createMatrix(int width, int height) {
@@ -78,4 +86,7 @@ void FluidDynamics::deleteMatrix(double **matrix, int height){
   for (int i = 0; i < height; i++)
     delete[] matrix[i];
   delete[] matrix;
+}
+void solving::printDensToFile(std::ofstream &ofile){
+  ofile << std::setprecision(16)<< planets[0] << " "<< planets[1] << " "<< planets[2] <<endl;
 }

@@ -33,7 +33,8 @@ class FluidDynamics
       void Initialize(int width, int height, double omega, double initial_vel);
       double ** createMatrix(int height,int width);
       void find_density(int width, int height);
-      void deleteMatrix(double **matrix, int height)
+      void deleteMatrix(double **matrix, int height);
+      void Lattice_Boltzmann(int width, int height);
 };
 
 #endif

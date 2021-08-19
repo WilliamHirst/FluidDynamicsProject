@@ -7,11 +7,13 @@
 #include <fstream>
 using namespace std;
 
-void FluidDynamics::Initialize(int width, int height, double omega, double initial_vel)
+void FluidDynamics::Initialize(int width, int height, double omega, double initial_vel, double fTime)
 {
   const double boltzmann_constant = 1.3806503e-23;
   const double nu = 1./3. * (1./omega - 0.5);
   const double c = 1;
+  const double FinalTime = fTime;
+  const double dt = (double) 1 / 30;
   three_Half = (double) 3 / 2;
   nine_Half = (double) 9 / 2);
   nOne = nTwo = nThree = nFour = nFive = nSix = nSeven = nEight = nNine = rho = u_x = u_y = createMatrix(width, height);
@@ -29,7 +31,6 @@ void FluidDynamics::Initialize(int width, int height, double omega, double initi
       u_y[i][j] = 0;
     }
   }
-
 }
 void FluidDynamics::find_density(int width, int height)
 {
@@ -53,6 +54,7 @@ void FluidDynamics::find_density(int width, int height)
 }
 void FluidDynamics::Lattice_Boltzmann(int width, int height)
 {
+
 
 }
 

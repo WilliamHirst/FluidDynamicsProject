@@ -2,7 +2,7 @@
 #define SOLVER_HPP
 #define _USE_MATH_DEFINES
 #include <cmath>
-#include "armadillo"
+#include 'armadillo'
 #include <string>
 
 class FluidDynamics
@@ -33,6 +33,7 @@ class FluidDynamics
       void Initialize(int width, int height, double omega, double initial_vel);
       double ** createMatrix(int height,int width);
       void find_density(int width, int height);
+      void deleteMatrix(double **matrix, int height)
 };
 
 #endif

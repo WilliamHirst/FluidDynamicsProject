@@ -2,7 +2,7 @@
 #define SOLVER_HPP
 #define _USE_MATH_DEFINES
 #include <cmath>
-#include 'armadillo'
+#include <armadillo>
 #include <string>
 
 class FluidDynamics
@@ -30,7 +30,7 @@ class FluidDynamics
       double *unit_y;
       double three_Half;
       double nine_Half;
-      double FinalTime;
+      double finalTime;
       double dt;
     public:
       void Initialize(int width, int height, double omega, double initial_vel, double fTime);

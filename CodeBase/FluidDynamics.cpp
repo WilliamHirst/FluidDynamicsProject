@@ -62,7 +62,7 @@ void FluidDynamics::Lattice_Boltzmann(int width, int height)
   while(counter<FinalTime) {
     for(int i = 0; i<width; i++){
       for(int j=0; j<height; j++){
-        find_density(i,j)
+        find_density(i,j);
       }
     }
     printDensToFile(width, height, ofile);

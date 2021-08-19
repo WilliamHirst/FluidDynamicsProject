@@ -41,16 +41,16 @@ void FluidDynamics::find_density(int width, int height)
     equiDens[i] = rho[width][height] * Omega[i] * (1 + 3 * e_dot_u +  nine_Half * e_dot_u * e_dot_u - three_Half * u_squared);
   }
   //Compute density in next time-step for all 9 lattices.
-  nZero[width][height] = nZero[width][height] +  omega * (equiDens[0] - nZero[width][height])
-  nOne[width][height] = nOne[width][height] +  omega * (equiDens[1] - nOne[width][height])
-  nTwo[width][height] = nTwo[width][height] +  omega * (equiDens[2] - nTwo[width][height])
-  nThree[width][height] = nThree[width][height] +  omega * (equiDens[3] - nThree[width][height])
-  nFour[width][height] = nFour[width][height] +  omega * (equiDens[4] - nFour[width][height])
-  nFive[width][height] = nFive[width][height] +  omega * (equiDens[5] - nFive[width][height])
-  nSix[width][height] = nSix[width][height] +  omega * (equiDens[6] - nSix[width][height])
-  nSeven[width][height] = nSeven[width][height] +  omega * (equiDens[7] - nSeven[width][height])
-  nEight[width][height] = nEight[width][height] +  omega * (equiDens[8] - nEight[width][height])
-  nNine[width][height] = nNine[width][height] +  omega * (equiDens[9] - nNine[width][height])
+  nZero[width][height] = nZero[width][height] +  omega * (equiDens[0] - nZero[width][height]);
+  nOne[width][height] = nOne[width][height] +  omega * (equiDens[1] - nOne[width][height]);
+  nTwo[width][height] = nTwo[width][height] +  omega * (equiDens[2] - nTwo[width][height]);
+  nThree[width][height] = nThree[width][height] +  omega * (equiDens[3] - nThree[width][height]);
+  nFour[width][height] = nFour[width][height] +  omega * (equiDens[4] - nFour[width][height]);
+  nFive[width][height] = nFive[width][height] +  omega * (equiDens[5] - nFive[width][height]);
+  nSix[width][height] = nSix[width][height] +  omega * (equiDens[6] - nSix[width][height]);
+  nSeven[width][height] = nSeven[width][height] +  omega * (equiDens[7] - nSeven[width][height]);
+  nEight[width][height] = nEight[width][height] +  omega * (equiDens[8] - nEight[width][height]);
+  nNine[width][height] = nNine[width][height] +  omega * (equiDens[9] - nNine[width][height]);
 }
 void FluidDynamics::Lattice_Boltzmann(int width, int height)
 {
@@ -58,7 +58,7 @@ void FluidDynamics::Lattice_Boltzmann(int width, int height)
 
 }
 
-double ** FluidDynamics::createMatrix(double width, double height) {
+double ** FluidDynamics::createMatrix(int width, int height) {
   // Set up matrix
   double **matrix;
   matrix = new double*[height];
@@ -72,4 +72,10 @@ double ** FluidDynamics::createMatrix(double width, double height) {
       }
   }
   return matrix;
+}
+
+void FluidDynamics::deleteMatrix(double **matrix, int height){
+  for (int i = 0; i < height; i++)
+    delete[] matrix[i];
+  delete[] matrix;
 }

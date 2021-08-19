@@ -30,7 +30,7 @@ class FluidDynamics
       double three_Half;
       double nine_Half;
     public:
-      void Initialize(double width, double height, double omega);
+      void Initialize(int width, int height, double omega, double initial_vel);
       double ** createMatrix(int height,int width);
       void find_density(int width, int height);
 };

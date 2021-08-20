@@ -141,7 +141,7 @@ void FluidDynamics::Lattice_Boltzmann(int height, int width)
   ofstream ofile;
   string outfilename = "particleDensity.txt";
   ofile.open(outfilename);
-  ofile << setprecision(16)<< width << " "<< height <<endl;
+  ofile << setprecision(16)<< width << " "<< height << " " << (double) finalTime/dt <<endl;
   double counter = 0.;
   while(counter<finalTime) {
     for(int i = 0; i<height; i++){

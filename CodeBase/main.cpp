@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
    FluidDynamics FD;
-   FD.Initialize(200, 100, 0.5, 0.4, 5);
-   FD.Lattice_Boltzmann(200,100);
+   FD.Initialize(100, 200, 0.5, 0.4, 5.);
+   FD.Lattice_Boltzmann(100,200);
    return 0;
 }

@@ -33,12 +33,12 @@ class FluidDynamics
       double finalTime;
       double dt;
     public:
-      void Initialize(int width, int height, double omega, double initial_vel, double fTime);
+      void Initialize(int height, int width, double omega, double initial_vel, double fTime);
       double ** createMatrix(int height,int width);
-      void find_density(int width, int height);
+      void find_density(int height, int width);
       void deleteMatrix(double **matrix, int height);
-      void Lattice_Boltzmann(int width, int height);
-      void printDensToFile(int width, int height, std::ofstream &ofile);
+      void Lattice_Boltzmann(int height, int width);
+      void printDensToFile(int height, int width, std::ofstream &ofile);
 };
 
 #endif

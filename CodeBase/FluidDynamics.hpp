@@ -2,7 +2,6 @@
 #define SOLVER_HPP
 #define _USE_MATH_DEFINES
 #include <cmath>
-#include <armadillo>
 #include <string>
 
 class FluidDynamics
@@ -32,13 +31,17 @@ class FluidDynamics
       double nine_Half;
       double finalTime;
       double dt;
+      double initialSquared;
+      double initial_vel;
     public:
-      void Initialize(int height, int width, double omega, double initial_vel, double fTime);
+      void Initialize(int height, int width, double inputOmega, double inputInitialVel, double fTime);
       double ** createMatrix(int height,int width);
+      double ** createMatrixOne(int height, int width);
       void find_density(int height, int width);
       void deleteMatrix(double **matrix, int height);
       void Lattice_Boltzmann(int height, int width);
       void printDensToFile(int height, int width, std::ofstream &ofile);
+
 };
 
 #endif

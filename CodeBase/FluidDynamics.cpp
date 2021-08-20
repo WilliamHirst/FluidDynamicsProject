@@ -62,6 +62,10 @@ void FluidDynamics::Initialize(int height, int width, double inputOmega, double 
 }
 void FluidDynamics::find_density(int height, int width)
 {
+  rho[height][width]  = (nZero[height][width] + nOne[height][width] + nTwo[height][width] + nThree[height][width] + nFour[height][width]\
+  + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width]);
+  u_x[height][width] = (nOne[height][width] + nThree[height][width] + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width])/(rho[height][width]);
+  u_y[height][width] = (nTwo[height][width] + nFour[height][width] + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width])/(rho[height][width]);
   double ux2 = u_x[height][width]*u_x[height][width];
 	double uy2 = u_y[height][width]*u_y[height][width];
   double u2 = ux2 + uy2;
@@ -76,10 +80,7 @@ void FluidDynamics::find_density(int height, int width)
 	nSix[height][width] = (1-omega)*nSix[height][width] + omega * Omega[6] * rho[height][width] * (omu215 + 3*(-u_x[height][width]+u_y[height][width]) + 4.5*(u2-2*uxuy));
 	nSeven[height][width] = (1-omega)*nSeven[height][width] + omega * Omega[7] * rho[height][width] * (omu215 + 3*(u_x[height][width]-u_y[height][width]) + 4.5*(u2-2*uxuy));
 	nEight[height][width] = (1-omega)*nEight[height][width] + omega * Omega[8] * rho[height][width] * (omu215 + 3*(-u_x[height][width]-u_y[height][width]) + 4.5*(u2+2*uxuy));
-  rho[height][width]  = (nZero[height][width] + nOne[height][width] + nTwo[height][width] + nThree[height][width] + nFour[height][width]\
-  + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width]);
-  u_x[height][width] = (nOne[height][width] + nThree[height][width] + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width])/(rho[height][width]);
-  u_y[height][width] = (nTwo[height][width] + nFour[height][width] + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width])/(rho[height][width]);
+
   if (height == 0) {
     nZero[height][width] = Omega[0]*(1. - 1.5*initialSquared);
     nOne[height][width] = Omega[1]*(1. - 1.5*initialSquared);
@@ -92,6 +93,49 @@ void FluidDynamics::find_density(int height, int width)
     nEight[height][width] = Omega[7]*(1. +  3*initial_vel + 4.5*initialSquared - 1.5*initialSquared);
   }
 }
+void FluidDynamics::Barrier(int height, int width){
+  int j = width/4;
+  for(int i = height/4; i< height*3/4; i++){
+    //Bounce particles back.
+    nOne[i][j-1] += nOne[i][j];
+    nTwo[i-1][j] += nTwo[i][j];
+    nThree[i-1][j] += nThree[i][j];
+    nFour[i+1][j] += nFour[i][j] ;
+    nFive[i-1][j+1] += nFive[i][j];
+    nSix[i+1][j+1] += nSix[i][j];
+    nSeven[i+1][j-1] = nSeven[i][j];
+    nEight[i-1][j-1] = nEight[i][j];
+    //Set all particles in barrier to 0.
+    nOne[i][j] = 0;
+    nTwo[i][j] = 0;
+    nThree[i][j] = 0;
+    nFour[i][j] = 0;
+    nFive[i][j] = 0;
+    nSix[i][j] = 0;
+    nSeven[i][j] = 0;
+    nEight[i][j] = 0;
+  }
+}
+void FluidDynamics::Roll(int height, int width) {
+
+  for(int i = 1; i<height-1; i++){
+    for(int j=1; j<width-1; j++){
+      nOne[i][j] = nOne[i][j+1];
+      nTwo[i][j] = nTwo[i+1][j];
+      nThree[i][j] = nThree[i+1][j];
+      nFour[i][j] = nFour[i-1][j];
+      nFive[i][j] = nFive[i+1][j-1];
+      nSix[i][j] = nSix[i-1][j-1];
+      nSeven[i][j] = nSeven[i-1][j+1];
+      nEight[i][j] = nEight[i+1][j+1];
+    }
+  }
+  for(int i = 0; i<height; i++) {
+    nOne[i][width-1] = nOne[i][0];
+    nFive[i][width-1] = nFive[i][0];
+    nEight[i][width-1] = nEight[i][0];
+  }
+}
 void FluidDynamics::Lattice_Boltzmann(int height, int width)
 {
   ofstream ofile;
@@ -102,7 +146,9 @@ void FluidDynamics::Lattice_Boltzmann(int height, int width)
   while(counter<finalTime) {
     for(int i = 0; i<height; i++){
       for(int j=0; j<width; j++){
+        Roll(height, width);
         find_density(i,j);
+        Barrier(height, width);
         printDensToFile(height, width, ofile);
       }
     }

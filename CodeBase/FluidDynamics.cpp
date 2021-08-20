@@ -76,7 +76,11 @@ void FluidDynamics::find_density(int height, int width)
 	nSix[height][width] = (1-omega)*nSix[height][width] + omega * Omega[6] * rho[height][width] * (omu215 + 3*(-u_x[height][width]+u_y[height][width]) + 4.5*(u2-2*uxuy));
 	nSeven[height][width] = (1-omega)*nSeven[height][width] + omega * Omega[7] * rho[height][width] * (omu215 + 3*(u_x[height][width]-u_y[height][width]) + 4.5*(u2-2*uxuy));
 	nEight[height][width] = (1-omega)*nEight[height][width] + omega * Omega[8] * rho[height][width] * (omu215 + 3*(-u_x[height][width]-u_y[height][width]) + 4.5*(u2+2*uxuy));
-  if (width == 0) {
+  rho[height][width]  = (nZero[height][width] + nOne[height][width] + nTwo[height][width] + nThree[height][width] + nFour[height][width]\
+  + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width]);
+  u_x[height][width] = (nOne[height][width] + nThree[height][width] + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width])/(rho[height][width]);
+  u_y[height][width] = (nTwo[height][width] + nFour[height][width] + nFive[height][width] + nSix[height][width] + nSeven[height][width] + nEight[height][width])/(rho[height][width]);
+  if (height == 0) {
     nZero[height][width] = Omega[0]*(1. - 1.5*initialSquared);
     nOne[height][width] = Omega[1]*(1. - 1.5*initialSquared);
     nTwo[height][width] = Omega[2]*(1. - 1.5*initialSquared);
